@@ -9,4 +9,8 @@ regiserBtn.addEventListener('click', () => {
 loginBtn.addEventListener('click', () => {
     container.classList.remove('active');
 });
+function redirectToShop(e) {
+    e.preventDefault(); // prevent form from reloading
+    window.location.href = "shop.html"; // redirect to shop page
+}
 
