@@ -8,49 +8,112 @@
   <link rel="stylesheet" href="css/shop.css" />
 </head>
 <body>
+ <body>
   <header>
     <h1>🛒 Rudra's Tech Store</h1>
     <nav>
-  <a href="#">Home</a>
-  <a href="#" id="cart-link">🛒 Cart (<span id="cart-count">0</span>)</a>
-  <a href="login.html">Logout</a>
-</nav>
-
+      <a href="#">Home</a>
+      <a href="#" id="open-cart">Cart (<span id="cart-count">0</span>)</a>
+      <a href="login.html">Logout</a>
+    </nav>
   </header>
 
   <section class="products">
-    <div class="product-card">
+    <div class="product-card" data-name="Smartphone" data-price="14999">
       <img src="images/smartphone1.jpg" alt="Smartphone">
       <h3>Smartphone</h3>
       <p>₹14,999</p>
-      <button>Add to Cart</button>
+      <button class="add-to-cart">Add to Cart</button>
     </div>
-    <div class="product-card">
+    <div class="product-card" data-name="Wireless Earphones" data-price="1499">
       <img src="images/earphone1.jpg" alt="Earphones">
       <h3>Wireless Earphones</h3>
       <p>₹1,499</p>
-      <button>Add to Cart</button>
+      <button class="add-to-cart">Add to Cart</button>
     </div>
-    <div class="product-card">
+    <div class="product-card" data-name="Smartwatch" data-price="2999">
       <img src="images/watch1.jpg" alt="Watch">
       <h3>Smartwatch</h3>
       <p>₹2,999</p>
-      <button>Add to Cart</button>
+      <button class="add-to-cart">Add to Cart</button>
     </div>
-    <!-- Add more cards -->
   </section>
-  <script>
-  let cartCount = 0;
-  const cartCountSpan = document.getElementById('cart-count');
-  const addButtons = document.querySelectorAll('button');
 
-  addButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      cartCount++;
-      cartCountSpan.textContent = cartCount;
+  <!-- 🧾 Cart Modal -->
+  <div id="cart-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-cart" class="close">&times;</span>
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <h3>Total: ₹<span id="cart-total">0</span></h3>
+    </div>
+  </div>
+
+  <script>
+    const cart = [];
+    const cartCount = document.getElementById('cart-count');
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+
+    const addToCartBtns = document.querySelectorAll('.add-to-cart');
+    addToCartBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const card = e.target.closest('.product-card');
+        const name = card.dataset.name;
+        const price = parseInt(card.dataset.price);
+
+        const existing = cart.find(item => item.name === name);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          cart.push({ name, price, qty: 1 });
+        }
+
+        updateCartUI();
+      });
     });
-  });
-</script>
+
+    function updateCartUI() {
+      cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+      cartItems.innerHTML = '';
+
+      let total = 0;
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          ${item.name} (x${item.qty}) - ₹${item.price * item.qty}
+          <button onclick="removeItem(${index})">❌</button>
+        `;
+        cartItems.appendChild(li);
+        total += item.price * item.qty;
+      });
+
+      cartTotal.textContent = total;
+    }
+
+    function removeItem(index) {
+      if (cart[index].qty > 1) {
+        cart[index].qty -= 1;
+      } else {
+        cart.splice(index, 1);
+      }
+      updateCartUI();
+    }
+
+    // Cart Modal
+    const cartModal = document.getElementById('cart-modal');
+    const openCart = document.getElementById('open-cart');
+    const closeCart = document.getElementById('close-cart');
+
+    openCart.onclick = () => cartModal.style.display = 'block';
+    closeCart.onclick = () => cartModal.style.display = 'none';
+    window.onclick = (e) => {
+      if (e.target == cartModal) {
+        cartModal.style.display = 'none';
+      }
+    };
+  </script>
+</body>
 
 </body>
 </html>
