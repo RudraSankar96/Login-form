@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout</title>
+  <link rel="stylesheet" href="css/shop.css" />
+</head>
+<body>
+  <header>
+    <h1>🧾 Checkout</h1>
+    <nav>
+      <a href="shop.html">← Back to Shop</a>
+    </nav>
+  </header>
+
+  <section class="checkout-form">
+    <form id="checkout-form">
+      <h2>Shipping Address</h2>
+      <input type="text" placeholder="Full Name" required>
+      <input type="text" placeholder="Street Address" required>
+      <input type="text" placeholder="City" required>
+      <input type="text" placeholder="State" required>
+      <input type="text" placeholder="Postal Code" required>
+      <input type="tel" placeholder="Phone Number" required>
+
+      <h2>Payment Method</h2>
+      <label><input type="radio" name="payment" value="cod" checked> Cash on Delivery</label><br>
+      <label><input type="radio" name="payment" value="card"> Credit/Debit Card</label><br>
+      <label><input type="radio" name="payment" value="upi"> UPI</label>
+
+      <h2>Cart Summary</h2>
+      <ul id="summary-list"></ul>
+      <p><strong>Total:</strong> ₹<span id="summary-total">0</span></p>
+
+      <button type="submit" class="btn">Confirm Order</button>
+    </form>
+  </section>
+
+  <script>
+    // Load cart from localStorage
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const summaryList = document.getElementById('summary-list');
+    const summaryTotal = document.getElementById('summary-total');
+
+    let total = 0;
+    cart.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.name} (x${item.qty}) - ₹${item.price * item.qty}`;
+      summaryList.appendChild(li);
+      total += item.price * item.qty;
+    });
+    summaryTotal.textContent = total;
+
+    // Confirm Order
+    document.getElementById('checkout-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('🎉 Order placed successfully!');
+      localStorage.removeItem('cart'); // clear cart
+      window.location.href = 'shop.html'; // redirect
+    });
+  </script>
+</body>
+</html>

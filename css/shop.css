@@ -183,3 +183,36 @@ nav a {
     font-size: 14px;
   }
 }
+@keyframes cart-bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+}
+
+#cart-count.animate {
+  animation: cart-bounce 0.4s ease;
+}
+.checkout-form {
+  padding: 2rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+.checkout-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.checkout-form input, .checkout-form button {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.checkout-form ul {
+  list-style: none;
+  padding: 0;
+}

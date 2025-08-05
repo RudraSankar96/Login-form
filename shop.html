@@ -14,7 +14,9 @@
     <nav>
       <a href="#">Home</a>
       <a href="#" id="open-cart">Cart (<span id="cart-count">0</span>)</a>
-      <a href="login.html">Logout</a>
+      <a href="index.html">Logout</a>
+      <a href="checkout.html">Checkout</a>
+
     </nav>
   </header>
 
@@ -46,6 +48,9 @@
       <h2>Your Cart</h2>
       <ul id="cart-items"></ul>
       <h3>Total: ₹<span id="cart-total">0</span></h3>
+      <h3>Total: ₹<span id="cart-total">0</span></h3>
+<a href="checkout.html" class="btn" style="margin-top: 10px; display:inline-block;">Checkout</a>
+
     </div>
   </div>
 
@@ -80,7 +85,9 @@
     localStorage.setItem('cart', JSON.stringify(cart));
 
     cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
-    cartItems.innerHTML = '';
+cartCount.classList.add('animate');
+setTimeout(() => cartCount.classList.remove('animate'), 400);
+
 
     let total = 0;
     cart.forEach((item, index) => {
