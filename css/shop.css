@@ -67,3 +67,8 @@ nav a {
   cursor: pointer;
   margin-top: 10px;
 }
+#cart-link {
+  background: #333;
+  padding: 6px 12px;
+  border-radius: 6px;
+}

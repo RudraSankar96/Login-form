@@ -11,10 +11,11 @@
   <header>
     <h1>🛒 Rudra's Tech Store</h1>
     <nav>
-      <a href="#">Home</a>
-      <a href="#">Cart</a>
-      <a href="#">Logout</a>
-    </nav>
+  <a href="#">Home</a>
+  <a href="#" id="cart-link">🛒 Cart (<span id="cart-count">0</span>)</a>
+  <a href="login.html">Logout</a>
+</nav>
+
   </header>
 
   <section class="products">
@@ -38,5 +39,18 @@
     </div>
     <!-- Add more cards -->
   </section>
+  <script>
+  let cartCount = 0;
+  const cartCountSpan = document.getElementById('cart-count');
+  const addButtons = document.querySelectorAll('button');
+
+  addButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      cartCount++;
+      cartCountSpan.textContent = cartCount;
+    });
+  });
+</script>
+
 </body>
 </html>
