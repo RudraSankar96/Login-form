@@ -233,3 +233,6 @@ nav a {
   border-radius: 4px;
   cursor: pointer;
 }
+.product-detail p {
+  font-size: 16px;
+}

@@ -1,0 +1,52 @@
+<!-- product.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product Details</title>
+  <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+  <header>
+    <h1>🔍 Product Details</h1>
+    <nav>
+      <a href="shop.html">← Back to Shop</a>
+      <a href="checkout.html">Checkout</a>
+    </nav>
+  </header>
+
+  <section class="product-detail" style="padding: 2rem; max-width: 600px; margin: auto; text-align: center;">
+    <img id="product-image" style="max-width: 100%; border-radius: 10px;" />
+    <h2 id="product-name"></h2>
+    <p id="product-price"></p>
+    <p id="product-description" style="margin-bottom: 20px;"></p>
+    <button id="add-to-cart-btn" class="btn">🛒 Add to Cart</button>
+  </section>
+
+  <script>
+    const product = JSON.parse(localStorage.getItem('selectedProduct'));
+    if (!product) {
+      window.location.href = 'shop.html';
+    }
+
+    document.getElementById('product-image').src = product.image;
+    document.getElementById('product-name').textContent = product.name;
+    document.getElementById('product-price').textContent = `Price: ₹${product.price}`;
+    document.getElementById('product-description').textContent = product.description;
+
+    // Add to Cart
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+      const existing = cart.find(item => item.name === product.name);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert("✅ Added to cart!");
+    });
+  </script>
+</body>
+</html>

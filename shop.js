@@ -26,6 +26,25 @@
     });
   });
 
+  // ✅ Clicking a product opens product.html with saved data
+document.querySelectorAll('.product-card').forEach(card => {
+  card.addEventListener('click', (e) => {
+    // Prevent click on "Add to Cart" from redirecting
+    if (e.target.classList.contains('add-to-cart')) return;
+
+    const product = {
+      name: card.dataset.name,
+      price: card.dataset.price,
+      image: card.dataset.image,
+      description: card.dataset.description
+    };
+
+    localStorage.setItem('selectedProduct', JSON.stringify(product));
+    window.location.href = 'product.html';
+  });
+});
+
+
   // ✅ Update cart UI and localStorage
 function updateCartUI() {
   localStorage.setItem('cart', JSON.stringify(cart));
