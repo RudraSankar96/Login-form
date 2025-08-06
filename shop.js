@@ -105,19 +105,30 @@ function decreaseQty(index) {
   }
   updateCartUI();
 }
-// ✅ Search Filter
+
+// ✅ Search + Category filter
 const searchBox = document.getElementById('search-box');
+const categoryFilter = document.getElementById('category-filter');
 const productCards = document.querySelectorAll('.product-card');
 
-searchBox.addEventListener('input', () => {
+searchBox.addEventListener('input', filterProducts);
+categoryFilter.addEventListener('change', filterProducts);
+
+function filterProducts() {
   const searchText = searchBox.value.toLowerCase();
+  const selectedCategory = categoryFilter.value;
 
   productCards.forEach(card => {
-    const productName = card.dataset.name.toLowerCase();
-    if (productName.includes(searchText)) {
+    const name = card.dataset.name.toLowerCase();
+    const category = card.dataset.category;
+
+    const matchesSearch = name.includes(searchText);
+    const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+
+    if (matchesSearch && matchesCategory) {
       card.style.display = 'block';
     } else {
       card.style.display = 'none';
     }
   });
-});
+}

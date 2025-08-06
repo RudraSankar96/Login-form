@@ -18,32 +18,40 @@
       <a href="checkout.html">Checkout</a>
 
     </nav>
-    <div style="margin-top: 1rem;">
-  <input type="text" id="search-box" placeholder="🔍 Search products..." style="padding: 10px; width: 80%; max-width: 400px; border-radius: 5px; border: 1px solid #ccc;">
+    <div style="text-align: center; margin-top: 10px;">
+  <input type="text" id="search-box" placeholder="🔍 Search products..." style="padding: 10px; width: 60%; max-width: 300px; border-radius: 5px; border: 1px solid #ccc; margin-right: 10px;">
+  
+  <select id="category-filter" style="padding: 10px; width: 200px; border-radius: 5px;">
+    <option value="all">All Categories</option>
+    <option value="electronics">Electronics</option>
+    <option value="fashion">Fashion</option>
+  </select>
 </div>
+
+
 
   </header>
 
   <section class="products">
-    <div class="product-card" data-name="Smartphone" data-price="14999">
+    <div class="product-card" data-name="Smartphone" data-price="14999" data-category="electronics">
       <img src="images/smartphone1.jpg" alt="Smartphone">
       <h3>Smartphone</h3>
       <p>₹14,999</p>
       <button class="add-to-cart">Add to Cart</button>
     </div>
-    <div class="product-card" data-name="Wireless Earphones" data-price="1499">
+    <div class="product-card" data-name="Wireless Earphones" data-price="1499" data-category="electronics">
       <img src="images/earphone1.jpg" alt="Earphones">
       <h3>Wireless Earphones</h3>
       <p>₹1,499</p>
       <button class="add-to-cart">Add to Cart</button>
     </div>
-    <div class="product-card" data-name="Smartwatch" data-price="2999">
+    <div class="product-card" data-name="Smartwatch" data-price="2999" data-category="electronics">
       <img src="images/watch1.jpg" alt="Watch">
       <h3>Smartwatch</h3>
       <p>₹2,999</p>
       <button class="add-to-cart">Add to Cart</button>
     </div>
-    <div class="product-card" data-name="T-Shirt" data-price="500" data-image="images/tshirt.jpg">
+    <div class="product-card" data-name="T-Shirt" data-price="500" data-image="images/tshirt.jpg" data-category="fashion">
   <img src="images/tshirt.jpg" alt="T-Shirt">
   <h3>T-Shirt</h3>
   <p>₹500</p>
