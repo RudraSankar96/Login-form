@@ -1,0 +1,43 @@
+<!-- wishlist.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wishlist</title>
+  <link rel="stylesheet" href="css/shop.css" />
+</head>
+<body>
+  <header>
+    <h1>❤️ Your Wishlist</h1>
+    <nav>
+      <a href="shop.html">← Back to Shop</a>
+    </nav>
+  </header>
+
+  <section class="products" id="wishlist-products"></section>
+
+  <script>
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const container = document.getElementById('wishlist-products');
+
+    wishlist.forEach((item, index) => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <h3>${item.name}</h3>
+        <p>₹${item.price}</p>
+        <button onclick="removeFromWishlist(${index})">❌ Remove</button>
+      `;
+      container.appendChild(card);
+    });
+
+    function removeFromWishlist(index) {
+      wishlist.splice(index, 1);
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      location.reload(); // reload the page to update
+    }
+  </script>
+</body>
+</html>

@@ -132,3 +132,34 @@ function filterProducts() {
     }
   });
 }
+// ✅ Wishlist Logic
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+const wishlistBtns = document.querySelectorAll('.wishlist-btn');
+const wishlistCount = document.getElementById('wishlist-count');
+
+wishlistBtns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const card = e.target.closest('.product-card');
+    const name = card.dataset.name;
+    const price = parseInt(card.dataset.price);
+    const image = card.dataset.image;
+
+    const exists = wishlist.find(item => item.name === name);
+    if (!exists) {
+      wishlist.push({ name, price, image });
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      updateWishlistUI();
+      alert(`${name} added to wishlist!`);
+    } else {
+      alert(`${name} is already in your wishlist.`);
+    }
+  });
+});
+
+function updateWishlistUI() {
+  wishlistCount.textContent = wishlist.length;
+}
+
+// ✅ Call on load
+updateWishlistUI();
