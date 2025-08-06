@@ -105,3 +105,19 @@ function decreaseQty(index) {
   }
   updateCartUI();
 }
+// ✅ Search Filter
+const searchBox = document.getElementById('search-box');
+const productCards = document.querySelectorAll('.product-card');
+
+searchBox.addEventListener('input', () => {
+  const searchText = searchBox.value.toLowerCase();
+
+  productCards.forEach(card => {
+    const productName = card.dataset.name.toLowerCase();
+    if (productName.includes(searchText)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+});
