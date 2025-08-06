@@ -1,0 +1,75 @@
+<!-- success.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order Success</title>
+  <link rel="stylesheet" href="css/shop.css" />
+  <style>
+    .success-page {
+      max-width: 600px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .success-page h1 {
+      color: #4BB543;
+      font-size: 32px;
+    }
+    .success-page ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+      text-align: left;
+    }
+    .success-page li {
+      margin: 10px 0;
+    }
+    .btn-home {
+      margin-top: 30px;
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #7494ec;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="success-page">
+    <h1>🎉 Thank You for Your Order!</h1>
+    <p>Your order has been placed successfully.</p>
+
+    <h3>🛍 Order Summary:</h3>
+    <ul id="order-summary"></ul>
+
+    <p><strong>Total:</strong> ₹<span id="order-total">0</span></p>
+
+    <a href="shop.html" class="btn-home">Continue Shopping</a>
+  </div>
+
+  <script>
+    const order = JSON.parse(localStorage.getItem('lastOrder')) || [];
+    const orderSummary = document.getElementById('order-summary');
+    const orderTotal = document.getElementById('order-total');
+
+    let total = 0;
+    order.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.name} (x${item.qty}) - ₹${item.price * item.qty}`;
+      orderSummary.appendChild(li);
+      total += item.price * item.qty;
+    });
+    orderTotal.textContent = total;
+
+    // Clear cart after showing success
+    localStorage.removeItem('cart');
+    localStorage.removeItem('lastOrder');
+  </script>
+</body>
+</html>

@@ -57,7 +57,10 @@
       e.preventDefault();
       alert('🎉 Order placed successfully!');
       localStorage.removeItem('cart'); // clear cart
-      window.location.href = 'shop.html'; // redirect
+     localStorage.setItem('lastOrder', JSON.stringify(cart)); // save order summary
+localStorage.removeItem('cart'); // clear cart
+window.location.href = 'success.html'; // redirect to success page
+
     });
   </script>
 </body>
