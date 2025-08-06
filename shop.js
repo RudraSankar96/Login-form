@@ -27,37 +27,43 @@
   });
 
   // ✅ Update cart UI and localStorage
-  function updateCartUI() {
-    // Save to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
+function updateCartUI() {
+  localStorage.setItem('cart', JSON.stringify(cart));
 
-    // Animate cart icon
-    cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
-    cartCount.classList.add('animate');
-    setTimeout(() => cartCount.classList.remove('animate'), 400);
+  cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+  cartCount.classList.add('animate');
+  setTimeout(() => cartCount.classList.remove('animate'), 400);
 
-    // Clear previous list
-    cartItems.innerHTML = '';
+  cartItems.innerHTML = '';
+  let total = 0;
 
-    // Show updated list
-    let total = 0;
-    cart.forEach((item, index) => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
-        <strong>${item.name}</strong> (x${item.qty}) – ₹${item.price * item.qty}
-        <button onclick="removeItem(${index})">❌</button>
-      `;
-      li.style.display = 'flex';
-      li.style.alignItems = 'center';
-      li.style.gap = '10px';
-      li.style.marginBottom = '8px';
-      cartItems.appendChild(li);
-      total += item.price * item.qty;
-    });
+  cart.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+      <div style="flex: 1;">
+        <strong>${item.name}</strong><br>
+        <span>₹${item.price * item.qty}</span>
+      </div>
+      <div class="qty-controls">
+        <button onclick="decreaseQty(${index})">−</button>
+        <span>${item.qty}</span>
+        <button onclick="increaseQty(${index})">+</button>
+      </div>
+    `;
 
-    cartTotal.textContent = total;
-  }
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.justifyContent = 'space-between';
+    li.style.gap = '10px';
+    li.style.marginBottom = '10px';
+    cartItems.appendChild(li);
+    total += item.price * item.qty;
+  });
+
+  cartTotal.textContent = total;
+}
+
 
   // ✅ Remove item from cart
   function removeItem(index) {
@@ -86,3 +92,16 @@
   // ✅ Initial render
   updateCartUI();
 
+function increaseQty(index) {
+  cart[index].qty += 1;
+  updateCartUI();
+}
+
+function decreaseQty(index) {
+  if (cart[index].qty > 1) {
+    cart[index].qty -= 1;
+  } else {
+    cart.splice(index, 1);
+  }
+  updateCartUI();
+}

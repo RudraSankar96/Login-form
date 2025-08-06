@@ -216,3 +216,20 @@ nav a {
   list-style: none;
   padding: 0;
 }
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.qty-controls button {
+  width: 25px;
+  height: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #7494ec;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
